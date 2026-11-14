@@ -1,0 +1,44 @@
+==========================================================
+ AI HEALTH COACH - USER GUIDE
+==========================================================
+Educational tool only - NOT medical advice. Check with your
+doctor before changing diet or exercise, especially with a
+medical condition or medication.
+
+START
+  Open the coach in Telegram and press Start. It will ask a
+  few questions (age, height, weight, goal, diet, allergies,
+  medical conditions) and then set your daily calorie and
+  nutrient targets.
+
+LOG FOOD - two ways
+  1. VOICE : record a voice note ("do roti aur ek katori dal").
+     Hindi, English and mixed all work. It shows what it heard.
+  2. TEXT  : type "had 2 idli and sambar for breakfast".
+  (Photo logging is not available yet.)
+
+OTHER THINGS TO SAY
+  - "What should I eat next?" / "Plan my day" / "Swap paneer,
+    I'm out of it"
+  - "I walked 30 minutes", "drank 500 ml water", "8000 steps",
+    "my weight is 68.5"
+  - "How am I doing today?"
+  - "Undo that" (removes what was just logged)
+  - "Remember I dislike bhindi" (it remembers preferences)
+
+COMMANDS
+  /checkin on 20:30   daily friendly check-in (/checkin off)
+  /privacy            what is stored and who sees it
+  /delete_my_data     erase everything about you
+  /help
+
+GOOD TO KNOW
+  - All nutrition numbers are estimates. Correct the coach if
+    you know better.
+  - Every personalised recommendation starts with a safety
+    notice - please read it.
+  - The coach will not suggest crash diets or very low
+    calories, and sends you to a doctor/dietitian for complex
+    medical situations.
+  - Your messages and relevant data are processed by
+    the DeepSeek AI service to answer you.

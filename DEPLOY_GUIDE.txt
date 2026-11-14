@@ -1,0 +1,104 @@
+==========================================================
+ PUT THE CHATBOT ON A PUBLIC URL  (Streamlit Community Cloud, free)
+==========================================================
+Goal: a web link anyone can open - your "Deployed URL".
+You need: a free GitHub account + a free Streamlit account
+(you sign in to Streamlit WITH GitHub). No command line.
+
+BEFORE YOU START
+  - Have your DeepSeek API key ready (the FULL key starting sk-;
+    DeepSeek shows it only once when you create it).
+  - IMPORTANT: upload from a FRESH copy of the project, not the
+    folder where you ran the bot. That folder holds your .env file
+    with secret keys and a big .venv folder.
+    -> Extract the newest health-coach.zip into a NEW empty folder.
+
+STEP 1  GitHub account
+  - Go to github.com -> Sign up (skip if you have one).
+
+STEP 2  Create a repository
+  - Open github.com/new
+  - Repository name:  health-coach
+  - Choose  Public
+  - Leave everything else unticked (no README, no .gitignore).
+  - Click "Create repository".
+
+STEP 3  Upload the project
+  - On the empty repository page click the link
+    "uploading an existing file".
+  - Open the NEW extracted folder, go INSIDE health-coach, press
+    Ctrl+A to select everything inside, and drag it all into the
+    GitHub upload box. Wait until every file and folder has
+    finished uploading.
+  - Scroll down, click "Commit changes".
+  - Check the repository's front page: you must see web_chat.py,
+    requirements.txt and the folders hc and data directly at the
+    top (not inside another folder).
+
+STEP 4  Create the app on Streamlit
+  - Open share.streamlit.io and click "Continue with GitHub";
+    allow access when asked.
+  - Click "Create app" -> "Deploy a public app from GitHub".
+  - Repository:     <your-username>/health-coach
+  - Branch:         main
+  - Main file path: web_chat.py
+  - App URL:        pick a name, e.g.  ai-health-coach
+                    (your link becomes
+                     https://ai-health-coach.streamlit.app )
+  - Click "Advanced settings":
+      * Python version: 3.12
+      * Secrets: paste these lines (keep the quote marks!):
+
+            DEEPSEEK_API_KEY = "sk-your-full-key-here"
+            GLOBAL_DAILY_LIMIT = "300"
+            AGENT_DAILY_LIMIT = "40"
+            HC_TZ = "Asia/Kolkata"
+
+      * Save, then click "Deploy".
+
+STEP 5  Wait
+  - You see "Your app is in the oven": it installs packages,
+    3-10 minutes the first time. When the chat page appears it is
+    live. The first chat message is slower (the memory model
+    loads); after that it is fast.
+
+STEP 6  Test it (use a private/incognito window)
+  1. Click "Set up my profile" and answer the questions.
+  2. Type: Remember that I dislike bhindi
+     -> the sidebar shows it under "What I remember about you".
+  3. Type: I had 2 roti and 1 katori dal for lunch
+  4. Type: What should I eat for dinner?
+     -> the reply starts with the safety notice; open "How I
+        answered" to see the retrieved memory (the RAG part).
+
+STEP 7  Submit
+  - Paste your https://....streamlit.app link into the
+    "Deployed URL" box on the Prime Creator page and into the
+    red box on your slide.
+
+IF SOMETHING GOES WRONG
+  - Click "Manage app" (bottom-right of the app) -> logs, and
+    send me the red lines.
+  - Reply "missing DEEPSEEK_API_KEY": Manage app -> Settings ->
+    Secrets - check the line is exactly
+    DEEPSEEK_API_KEY = "sk-..."  with quotes, then Save and reboot.
+  - "AI key was rejected": the key was wrong or a masked copy.
+    Create a new DeepSeek key and replace it in Secrets.
+  - "couldn't reach the AI service": check your DeepSeek balance.
+  - Out-of-memory / app keeps restarting: tell me - the chat can
+    run without the vector memory model if needed.
+
+GOOD TO KNOW
+  - A free app goes to sleep after a period with no visitors;
+    visitors see a "wake up" button and it starts in about a
+    minute. Open your link shortly before it will be reviewed.
+  - Chats and memories are temporary on this host (reset on
+    restart). Fine for a demo.
+  - Every message uses YOUR DeepSeek credit; the limits above
+    protect you. Don't enter real medical details.
+  - The old Hugging Face Space is not needed. Pause or delete it.
+
+NOTE: I could not test the Streamlit Cloud deployment from my
+side (no GitHub/Streamlit account there). The chatbot was tested
+end to end locally with a simulated DeepSeek server, and the
+secrets-to-settings step is covered by an automated test.

@@ -1,0 +1,2 @@
+# Optional: voice-note transcription for the Telegram bot (large download).
+faster-whisper>=1.0

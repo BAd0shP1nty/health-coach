@@ -1,0 +1,73 @@
+==========================================================
+ AI HEALTH COACH - SETUP GUIDE (for the person running it)
+==========================================================
+You will create a Telegram bot, give it two keys, and run it.
+Your users then just chat with the bot on their phones.
+No APK / Play Store is needed.
+
+STEP 1  Create the Telegram bot (2 minutes)
+  - On your phone open Telegram, search for  @BotFather
+  - Send:  /newbot   and follow the questions (name, username)
+  - BotFather gives you a TOKEN like 123456:ABC-DEF...  Copy it.
+
+STEP 2  Get your DeepSeek API key
+  - Go to platform.deepseek.com, sign in, open "API keys",
+    create a key and copy it. (You said you have one.)
+  - Cost note: every chat message is an API call. Use
+    AGENT_DAILY_LIMIT in .env to cap messages per user.
+
+STEP 3  Put the project on a computer
+  - Extract health-coach.zip. Install Python 3.10+ from
+    python.org (tick "Add python.exe to PATH").
+
+STEP 4  Add your keys
+  - Copy ".env.example" to ".env" (exact name) and open it in
+    Notepad. Fill in:
+        DEEPSEEK_API_KEY=...
+        TELEGRAM_BOT_TOKEN=...
+  - Optional: TELEGRAM_ALLOWED_IDS=your_id  to keep the bot
+    private while you test (ask @userinfobot for your id).
+
+STEP 5  Start it
+  - Double-click  run_bot.bat   (first run installs packages and
+    shows progress; core packages take a few minutes, the optional
+    memory/voice packages can take longer - you may press Ctrl+C
+    during THAT part and the bot still works without them).
+  - When the window says "Bot is live as @yourbot ... Waiting for
+    messages", the bot is running. THE WINDOW MUST STAY OPEN and
+    will look idle - that is normal. Never close it while you want
+    the bot to answer. Ctrl+C stops it.
+  - Open Telegram, find your bot, press Start, and say hi.
+  - Try: send a voice note, "I had 2 roti and
+    dal", "what should I eat next?", /checkin on 20:30
+
+KEEP IT RUNNING
+  - The bot only answers while this program runs. Running it on
+    your PC means it sleeps when the PC sleeps. For 24/7 use,
+    host it (a small VPS, or Render / Railway / Fly.io using the
+    included Dockerfile.bot). Keep the "data" folder on a persistent
+    disk - it holds every customer's information.
+  - Back up the "data" folder regularly.
+
+BEFORE OPENING IT TO THE PUBLIC
+  - This handles health information. Add a privacy policy,
+    tell users their data goes to DeepSeek, a China-based
+    provider (the /privacy command does), and check the health-data rules where your
+    users live. Keep TELEGRAM_ALLOWED_IDS set until you are ready.
+
+TROUBLESHOOTING
+  - FIRST STOP: double-click  run_doctor.bat  . It checks your .env,
+    Telegram token, DeepSeek key and allow-list and tells you
+    exactly what to fix.
+  - The bot window prints "incoming text from user id ..." for
+    every message it receives. No such line = the message is not
+    reaching this copy of the bot (wrong bot, or a second copy is
+    running elsewhere).
+  - "Set TELEGRAM_BOT_TOKEN": .env is missing the token or the
+    file is named .env.txt.
+  - Bot silent: check the black window for errors; make sure only
+    ONE copy of the bot is running.
+  - "AI key was rejected": wrong or empty DEEPSEEK_API_KEY.
+  - "insufficient balance": top up the DeepSeek account.
+  - Voice notes fail: first voice note downloads a ~150 MB model
+    (needs internet); otherwise users can type.

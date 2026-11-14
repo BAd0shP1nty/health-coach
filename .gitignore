@@ -1,0 +1,6 @@
+.env
+__pycache__/
+data/health.db
+data/users/
+data/vectordb/
+.venv/

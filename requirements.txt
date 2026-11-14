@@ -1,0 +1,8 @@
+streamlit>=1.50
+python-telegram-bot[job-queue]>=21.0
+chromadb>=1.0
+requests>=2.31
+python-dotenv>=1.0
+Pillow>=10.0
+tzdata
+pysqlite3-binary; sys_platform == "linux"
