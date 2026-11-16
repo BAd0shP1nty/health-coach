@@ -34,7 +34,21 @@ try:
     _probe.unlink()
 except OSError:
     os.environ.setdefault("HC_DATA_DIR", str(Path(tempfile.gettempdir()) / "hc-data"))
-from hc import agent, calc, db  # noqa: E402
+_ROOT = Path(__file__).resolve().parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+try:
+    from hc import agent, calc, db  # noqa: E402
+except Exception as _e:  # noqa: BLE001 - show the real reason on the page (hosts hide tracebacks from visitors)
+    import traceback
+    st.error(f"Startup problem: {type(_e).__name__}: {_e}")
+    st.write("Files next to web_chat.py in this deployment:")
+    st.code("\n".join(sorted(p.name + ("/" if p.is_dir() else "") for p in _ROOT.iterdir())))
+    if (_ROOT / "hc").is_dir():
+        st.write("Files inside hc/:")
+        st.code("\n".join(sorted(p.name + ("/" if p.is_dir() else "") for p in (_ROOT / "hc").iterdir())))
+    st.code(traceback.format_exc()[-1500:])
+    st.stop()
 
 st.set_page_config(page_title="AI Health Coach (RAG chatbot)", page_icon="🥗", layout="centered")
 st.markdown("<style>.block-container{max-width:820px;padding-top:1.5rem}</style>", unsafe_allow_html=True)
