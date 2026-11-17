@@ -37,6 +37,15 @@ except OSError:
 _ROOT = Path(__file__).resolve().parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
+# If the hc/ code folder did not make it to the host (web uploads often drop folders), unpack it from hc_bundle.zip.
+_BUNDLE = _ROOT / "hc_bundle.zip"
+if not (_ROOT / "hc").is_dir() and _BUNDLE.exists():
+    import zipfile
+    _dst = Path(tempfile.gettempdir()) / "hc_bundle"
+    if not (_dst / "hc").is_dir():
+        with zipfile.ZipFile(_BUNDLE) as _z:
+            _z.extractall(_dst)
+    sys.path.insert(0, str(_dst))
 try:
     from hc import agent, calc, db  # noqa: E402
 except Exception as _e:  # noqa: BLE001 - show the real reason on the page (hosts hide tracebacks from visitors)
